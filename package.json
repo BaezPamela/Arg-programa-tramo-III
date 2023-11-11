@@ -4,6 +4,7 @@
   "description": "",
   "main": "servidorExpress.js",
   "scripts": {
+    "start": "node servidorExpress",
     "dev": "nodemon servidorExpress"
   },
   "author": "",
