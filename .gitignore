@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 comision-M-04-Pamela-Baez
 node_modules
 package-lock.json
+=======
+node_modules
+package-lock.json
+.env
+>>>>>>> 7b8184af949640096e40511d0f9460ea8749797a
