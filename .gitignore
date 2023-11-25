@@ -2,5 +2,6 @@
 comision-M-04-Pamela-Baez
 node_modules
 package-lock.json
+.env
 
 
