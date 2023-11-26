@@ -1,22 +1,22 @@
 require('dotenv').config()
 
 const express = require('express');
-const server = express();
+const UserRouter = require('./routes/UserRoutes.js');
 
+const app = express();
 const PORT = 3000;
 
 
-
-    
-
-  
-    server.get('/', (req, res) => {
+app.get('/', (req, res) => {
         res.send('hola mundo!');
+});
+ 
+app.use(UserRouter);
 
-    });
-   
 /*iniciar el servidor*/
-server.listen(PORT, () => {
+
+app.listen(PORT, () => {
   console.log(`servidor corriendo el el puerto ${PORT}`);
   
 });
+
