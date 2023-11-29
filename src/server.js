@@ -13,7 +13,6 @@ const app = express();
 const PORT = 3000;
 
 /*middleware para aceptar solicitudes en formato js*/
-
 app.use(bodyParser.json());
 app.use(fileUpload());
 
@@ -21,6 +20,9 @@ app.use(fileUpload());
 app.use(UserRouter);
 app.use(verifyRouter);
 app.use(archivoRouter);
+
+
+
 /*iniciar el servidor*/
 
 app.listen(PORT, () => {
