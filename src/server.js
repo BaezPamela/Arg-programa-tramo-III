@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 
 
+const conectarMongo = require('./config/BDConfig.js');
+
 const UserRouter = require('./routes/UserRoutes.js');
 const verifyRouter = require('./routes/verifyRoutes.js');
 const archivoRouter = require('./routes/archivosRoutes.js');
@@ -28,5 +30,8 @@ app.use(archivoRouter);
 app.listen(PORT, () => {
   console.log(`servidor corriendo el el puerto ${PORT}`);
   
+  /*conectar BD*/
+conectarMongo();
+
 });
 

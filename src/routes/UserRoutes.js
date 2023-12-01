@@ -6,11 +6,12 @@ const {verUsuarios,
     eliminarUsuario,
  } = require('./../controllers/UserController.js');
  
+ 
  /*ruta ver usuarios*/
 UserRouter.get('/usuarios',verUsuarios);
 
 /*ruta ver usuario*/
-UserRouter.get('/usuario',verUsuario);
+UserRouter.get('/usuario/:id',verUsuario);
 
 /*ruta crear usuario*/
 UserRouter.post('/usuario',crearUsuario);
