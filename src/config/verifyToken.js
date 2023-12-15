@@ -1,26 +1,41 @@
 /*middleware para verificar tokens */
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const User = require('./../models/User.js');
 
 const verifyToken = {}
 
 const JWT_KEY = process.env.JWT_KEY;
 
-const usuarios=[
-    { id: 1, usuario:'pamela', clave:'123456'},
-    { id: 2, usuario:'mariano', clave:'654321'},
-];
-
-
-
-verifyToken.autenticar = (req, res) => {
-    const usuario = req.body.usuario;
-    
-    let token = jwt.sign({usuario: usuario }, JWT_KEY);  
-    
-        res.json({ token: token }); 
-    
+verifyToken.autenticar = async (req, res) => {
+     try{  
+       const {userName,password} = req.body;
+        console.log(req.body)
+       
+        const usuarioEncontrado = await User.findOne({
+          userName,password
+        });
         
-    }
+       if(!usuarioEncontrado) {
+           return res.status(404).json({ mensaje:'El usuario no ha sido encontrado'});
+       }
+       
+       const datos ={
+          id: usuarioEncontrado._id,
+          userName:usuarioEncontrado.userName,
+          email:usuarioEncontrado.email,
+          avatarURL: usuarioEncontrado.avatarURL,
+       }
+       
+       //genera el token y la guarda en la variable token
+       let token = jwt.sign(datos , JWT_KEY);  
+    
+        res.json({ token,datos });
+      }catch (error){
+        return res.status(500).json({ mensaje:'Se produjo un error interno'});
+
+  }
+    
+}
 
 verifyToken.registrar = (req, res) => {
        

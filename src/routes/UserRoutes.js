@@ -4,8 +4,9 @@ const {verUsuarios,
     crearUsuario,
     editarUsuario,
     eliminarUsuario,
+    
  } = require('./../controllers/UserController.js');
- 
+ const{autenticar} = require ('./../config/verifyToken.js')
  
  /*ruta ver usuarios*/
 UserRouter.get('/usuarios',verUsuarios);
@@ -22,11 +23,13 @@ UserRouter.put('/usuario',editarUsuario);
 /*eliminar usuario*/
 UserRouter.delete('/usuario',eliminarUsuario);
 
+// Ruta para el inicio de sesión
+//UserRouter.post('/autenticar', autenticar);
+
+module.exports = UserRouter;
 
 
 
 
 
 
-
-module.exports =UserRouter;

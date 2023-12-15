@@ -44,7 +44,7 @@ UserController.verUsuario= async (req,res) =>{
 /*crear usuario*/
 UserController.crearUsuario= async (req,res) => {
     try {
-        const { userName, password, email, avatarURL} = req.body
+        const { userName, password, email, avatarURL} = req.body;
        
         const nuevoUsuario = new User ({
             userName: userName,
@@ -108,6 +108,8 @@ UserController.eliminarUsuario= async (req,res) =>{
     
     return res.json({mensaje:'ruta: eliminar usuario'});
 }
+
+
 
 
 module.exports = UserController;
