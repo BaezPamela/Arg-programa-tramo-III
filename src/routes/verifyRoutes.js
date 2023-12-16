@@ -9,7 +9,7 @@ const {
 
 verifyRouter.post('/autenticar',autenticar);
 
-verifyRouter.post('/verificarToken',verificarToken);
+verifyRouter.post('/verificar',verificarToken);
 
 
 

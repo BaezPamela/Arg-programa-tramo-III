@@ -1,21 +1,65 @@
 const Comment = require('./../models/Comment.js');
+const {verificarToken} = require ('./.././utils/token.js')
 
 const CommentController = {};
 
-// Crear comentario
-CommentController.createComment = async (req, res) => {
-  try {
-    const { author, description } = req.body;
-    const newComment = new Comment({ author, description });
-    await newComment.save();
-    res.json({ mensaje: 'Comentario creado exitosamente', comment: newComment });
-  } catch (error) {
-    res.status(500).json({ mensaje: 'Error al crear el comentario', error: error.mensaje });
+commentController.listarComments = async(req,res) => {
+  try{
+    const {idPost} = req.params;
+    const commentEncontrados = await Comment.find({
+      post:idPost,
+      }).populate('autor');
+
+    return res.json(commentEncontrados);
+  }catch (error){
+    return res.status(500).json({
+      mensaje:'No se pudo obtener los comentarios del post',
+      error:error
+    });
   }
-};
+}
+
+// Crear comentario
+CommentController.crearComment = async (req, res) => {
+  try {
+    const {  description, idPost } = req.body;
+    const {token} = req.headers;
+
+    const tokenValido = verificarToken(token);
+    
+    if(!tokenValido){
+      return res.status(500).json({
+        mensaje:'El token no es valido',
+        
+      });
+      
+    }
+
+    const autor = tokenValido.id;
+
+    const newComment = new Comment({
+       autor:autor, 
+       description:description ,
+       post:idPost,
+      });
+
+      
+      await newComment.save();
+      return res.json({ mensaje: 'Comentario creado exitosamente', comment: newComment });
+      }catch (error){
+        console.log(error);
+        return res.status(500).json({
+          mensaje:'error al crear el comentario',
+          error:save
+        });
+      }
+    
+  } 
+  
+
 
 // Editar comentario
-CommentController.editComment = async (req, res) => {
+CommentController.editarComment= async (req, res) => {
   try {
     const { id } = req.params;
     const { author, description } = req.body;
